@@ -3,11 +3,21 @@ import os
 import cv2
 import pytesseract
 
+from .config import RES
+
 INSTALL_URL = "https://github.com/UB-Mannheim/tesseract/wiki"
 
 
+BUNDLED = RES / "tesseract"                 # Tesseract shipped inside the packaged .exe (tools/build_exe.py)
+
+
 def configure(tesseract_path):
-    if os.path.exists(tesseract_path):
+    """Use the Tesseract bundled with the .exe if there is one, else the configured path."""
+    bundled = BUNDLED / "tesseract.exe"
+    if bundled.exists():
+        pytesseract.pytesseract.tesseract_cmd = str(bundled)
+        os.environ["TESSDATA_PREFIX"] = str(BUNDLED / "tessdata")
+    elif os.path.exists(tesseract_path):
         pytesseract.pytesseract.tesseract_cmd = tesseract_path
 
 

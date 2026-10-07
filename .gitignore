@@ -17,3 +17,4 @@ docs/
 build/
 dist/
 *.spec
+!/Neocron Tech Counter.exe
