@@ -28,6 +28,7 @@ class App:
         self.sets_refresh = None         # set while the Sets window is open, so it follows the list
         self.closing = False
 
+        skin.set_app_id()
         skin.load_font()                                           # before Tk starts, so Blinker is found
         self.root = tk.Tk()
         self.root.title("Neocron Tech Counter")

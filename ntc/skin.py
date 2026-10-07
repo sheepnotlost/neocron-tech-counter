@@ -59,6 +59,14 @@ WARN_BG = "#33290a"
 SUB = "#6aa488"
 
 
+def set_app_id():
+    """Own taskbar identity: without it Windows groups the window under python.exe and shows Python's icon."""
+    try:
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("NeocronTechCounter.App")
+    except (AttributeError, OSError):
+        pass
+
+
 def load_font():
     """Make Blinker available to this process only (no install, gone when the app closes). Call before Tk starts."""
     if FONT_FILE.exists():
@@ -319,6 +327,25 @@ def _gem_button(parent, kind, command):
     return cv
 
 
+def set_icon(win):
+    """Give the window (and its taskbar button) the tech icon. Done with WM_SETICON because the frame change
+    above drops the icon Tk set, and the taskbar then shows Tk's feather."""
+    ico = ASSETS / "icon.ico"
+    if _u32 is None or not ico.exists():
+        return
+    _u32.LoadImageW.restype = wintypes.HANDLE
+    _u32.LoadImageW.argtypes = [wintypes.HINSTANCE, wintypes.LPCWSTR, wintypes.UINT, ctypes.c_int, ctypes.c_int,
+                                wintypes.UINT]
+    _u32.SendMessageW.argtypes = [wintypes.HWND, wintypes.UINT, wintypes.WPARAM, wintypes.LPARAM]
+    hwnd = _hwnd(win)
+    win._ntc_icons = []
+    for kind, size in ((1, 32), (0, 16)):                                   # ICON_BIG, ICON_SMALL
+        h = _u32.LoadImageW(None, str(ico), 1, size, size, 0x10)             # IMAGE_ICON, LR_LOADFROMFILE
+        if h:
+            win._ntc_icons.append(h)
+            _u32.SendMessageW(hwnd, 0x80, kind, h)                           # WM_SETICON
+
+
 class Frame:
     """The custom frame of one window. `body` is where the window's own widgets go."""
 
@@ -353,6 +380,7 @@ class Frame:
         win.bind("<Configure>", self._on_configure, add="+")
         self._last = None
         win._ntc_frame = self
+        set_icon(win)
 
     # title bar: icon + title + buttons; dragging it moves the window
     def _title_bar(self, title, minimizable):
