@@ -1,0 +1,16 @@
+# personal data
+lists.json
+lists.json.*
+config.json
+exports/
+# local launcher shortcut (contains an absolute path)
+*.lnk
+# game screenshots (large; may show UI/overlays from the author's PC)
+tests/fixtures/
+# generated
+__pycache__/
+.pytest_cache/
+*.bak
+known_items.json.*
+# previews captured from the author's desktop; obsolete calibration infographic
+docs/
