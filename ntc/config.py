@@ -1,7 +1,13 @@
 import json
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+import sys
+
+FROZEN = getattr(sys, "frozen", False)                 # running as the packaged .exe
+# ROOT: where the user's own files live (config, lists, known items, exports): next to the .exe, or the project folder.
+# RES: read-only files bundled with the program (assets, data).
+ROOT = Path(sys.executable).resolve().parent if FROZEN else Path(__file__).resolve().parent.parent
+RES = Path(getattr(sys, "_MEIPASS", ROOT)) if FROZEN else ROOT
 CONFIG_PATH = ROOT / "config.json"
 
 # Seeded from the measured layout of the cabinet window at 2560x1440 (see SPEC section 4).

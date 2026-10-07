@@ -8,6 +8,14 @@ and never reads game memory. It only moves the mouse over each filled slot so th
 1. Python 3.14 and `python -m pip install -r requirements.txt`
 2. Tesseract OCR: `winget install UB-Mannheim.TesseractOCR` (default path is fine)
 
+## Download (no Python needed)
+Get `Neocron Tech Counter.exe` from the [Releases page](https://github.com/sheepnotlost/neocron-tech-counter/releases) and run it. You still need Tesseract OCR (`winget install UB-Mannheim.TesseractOCR`). Your lists, settings and exports are saved next to the .exe, so keep it in its own folder.
+
+Build it yourself: `python -m pip install pyinstaller`, then
+```
+python -m PyInstaller --noconfirm --onefile --windowed --name "Neocron Tech Counter" --icon assets/icon.ico --add-data "assets;assets" --add-data "data/tech_sets.json;data" run_ntc.py
+```
+
 ## Use
 ```
 python -m ntc

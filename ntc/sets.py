@@ -5,9 +5,9 @@ import json
 import re
 from dataclasses import dataclass, field
 
-from .config import ROOT
+from .config import RES
 
-DATA = ROOT / "data" / "tech_sets.json"
+DATA = RES / "data" / "tech_sets.json"
 PART_RE = re.compile(r"^(?P<part>.+?) Part Of (?P<item>.+)$", re.I)
 ABBREV = {"Technology": "Tech", "Hull": "Hull", "Frame": "Frame", "Core": "Core", "Component": "Comp",
           "Additional Technology": "Add.Tech"}

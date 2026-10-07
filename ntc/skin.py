@@ -14,9 +14,9 @@ from tkinter import ttk
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageTk
 
-from .config import ROOT
+from .config import RES
 
-ASSETS = ROOT / "assets"
+ASSETS = RES / "assets"
 FONT_FILE = ASSETS / "fonts" / "Blinker-Regular.ttf"
 FAMILY = "Blinker"
 

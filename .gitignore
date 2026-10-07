@@ -14,3 +14,6 @@ __pycache__/
 known_items.json.*
 # previews captured from the author's desktop; obsolete calibration infographic
 docs/
+build/
+dist/
+*.spec

@@ -185,3 +185,6 @@ Purely cosmetic; no behaviour of sections 1-15 changes. Code in `ntc/skin.py`.
 
 ## 17. Speed (added 2026-10-06)
 Techs-only label skip (section 6.3), 2-notch scrolling and shorter scroll waits (`scroll_settle_ms` 200, `scroll_park_ms` 150, wheel pre-wait 80 ms). Live target (NOT yet measured on the real game): an inventory of 99 slots over 3+ screens clearly faster than the 45 s measured with every item hovered; the 2-notch scroll and the shorter waits must be confirmed live (no skipped or doubled rows, no "Lost track of the scrolling").
+
+## 18. Packaged .exe (added 2026-10-07)
+`run_ntc.py` is the entry point for a PyInstaller one-file windowed build (command in README). When frozen, `config.ROOT` (config.json, lists.json, known_items.json, exports/) is the folder of the .exe, and `config.RES` (assets, data/tech_sets.json) is the bundle's temporary folder. The .exe is published on the GitHub Releases page, not committed. Tesseract is still installed separately. Verified: the built .exe starts, shows the skinned frame and creates an empty "Default" list.
